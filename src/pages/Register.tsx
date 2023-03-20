@@ -4,8 +4,8 @@ import Link from "next/link";
 import {useRouter} from "next/router";
 import styles from "@/styles/Home.module.css";
 import {Alert} from "@/Components/Alert/Alert";
-export default function Login() {
-  const {login, loginWithGoogle}: any = useAuth();
+export default function Register() {
+  const {signup}: any = useAuth();
 
   const [user, setUser] = useState({
     email: "",
@@ -19,18 +19,8 @@ export default function Login() {
     e.preventDefault();
     setError("");
     try {
-      await login(user.email, user.password);
-      router.push("/Dashboard");
-    } catch (error: any) {
-      console.log("error", error);
-      setError(error?.message);
-    }
-  };
-
-  const handleGoogleSignin = async () => {
-    try {
-      await loginWithGoogle();
-      router.push("/Dashboard");
+      await signup(user.email, user.password);
+      router.push("/");
     } catch (error: any) {
       console.log("error", error);
       setError(error?.message);
@@ -76,21 +66,14 @@ export default function Login() {
             />
           </div>
 
-          <button className="bg-blue-500 hover:bg-blue-700 text-white  w-full font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-            Login
+          <button className="bg-blue-500 hover:bg-blue-700 w-full text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+            Register
           </button>
         </form>
-
-        <button
-          onClick={handleGoogleSignin}
-          className="bg-blue-500 hover:bg-blue-700 text-white  w-full font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-        >
-          Google
-        </button>
         <p className="my-4 text-sm flex justify-between px-3">
           Already have an Account?
-          <Link href="/Register" className="text-blue-700 hover:text-blue-900">
-            Register
+          <Link href="/" className="text-blue-700 hover:text-blue-900">
+            Login
           </Link>
         </p>
       </div>
